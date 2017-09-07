@@ -25,12 +25,20 @@ class NewCreature extends Component {
             description: this.state.description
         }
         const res = await axios.post(`/api/creatures`, payload);
-        this.setState({})
+        this.setState({
+            name: res.data.name,
+            description: res.data.description,
+            redirect: true
+        })
     }
     render() {
+        if(this.state.redirect) {
+            return <Redirect to="/" />
+        }
         return (
             <div>
-                <form onSubmit={}>
+                <h1>New Creature</h1>
+                <form onSubmit={this._newCreature}>
                     <div>
                         <label htmlFor="name">Creature Name: </label>
                         <input onChange={this._handleChange} type="text" name="name" value={this.state.name} />
