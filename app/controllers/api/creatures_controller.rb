@@ -1,4 +1,6 @@
 class Api::CreaturesController < ApplicationController
+    before_action :authenticate_user!
+    
     def index
         @creatures = Creature.all 
         render json: @creatures

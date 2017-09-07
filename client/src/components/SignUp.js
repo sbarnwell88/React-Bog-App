@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import axios from 'axios';
+import { saveAuthTokens } from '../util';
 
 class SignUp extends Component {
  constructor(){
@@ -28,6 +29,19 @@ class SignUp extends Component {
    newState[e.target.name] = e.target.value;
    this.setState(newState);
  }
+
+  _signUp = async (e) => {
+    e.preventDefault();
+    const payload = {
+      email: this.state.email,
+      password: this.state.password,
+      password_confirmation: this.state.password_confirmation
+    }
+    const response = await axios.post('/auth', payload)
+    
+    saveAuthTokens(response.headers)
+    this.setState({redirect: true})
+  }
 
  render() {
    if (this.state.redirect){
