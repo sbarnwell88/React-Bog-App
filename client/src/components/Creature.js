@@ -5,9 +5,8 @@ class Creature extends Component {
     constructor() {
         super();
         this.state = {
-            creature: {
-                pets: []
-            },
+            creature: {},
+            pets: []
         }
     }
 
@@ -18,7 +17,7 @@ class Creature extends Component {
 
     _getCreatureAndPets = async (creatureId) => {
             const res = await axios.get(`/api/creatures/${creatureId}`)
-            this.setState({creature: res.data })
+            this.setState({creature: res.data.creature, pets: res.data.pets })
             return res.data
     }
 
@@ -27,6 +26,11 @@ class Creature extends Component {
             <div>
                 <h1>{this.state.creature.name}</h1>
                 <p>{this.state.creature.description}</p>
+                {this.state.pets.map(pet => (
+                    <div key={pet.id}>
+                        <p>Pet Name: {pet.name}</p>
+                    </div>
+                ))}
             </div>
         );
     }

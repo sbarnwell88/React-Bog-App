@@ -10,7 +10,8 @@ class Api::CreaturesController < ApplicationController
 
     def show
         @creature = Creature.find params[:id]
-        render json: @creature
+        @pets = @creature.pets.all
+        render json: {creature: @creature, pets: @pets}
     end
 
     def update
