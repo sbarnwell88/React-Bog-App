@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 
 class Creature extends Component {
@@ -6,7 +7,8 @@ class Creature extends Component {
         super();
         this.state = {
             creature: {},
-            pets: []
+            pets: [],
+            redirect: false
         }
     }
 
@@ -21,7 +23,16 @@ class Creature extends Component {
             return res.data
     }
 
+    _deleteCreature = async () => {
+        const creatureId = this.props.match.params.id;
+        const res = await axios.delete(`/api/creatures/${creatureId}`)
+        this.setState({ creature: res.data.creature, redirect: true })
+    }
+
     render() {
+        if(this.state.redirect) {
+            return <Redirect to='/'/>
+        }
         return (
             <div>
                 <h1>{this.state.creature.name}</h1>
@@ -31,6 +42,7 @@ class Creature extends Component {
                         <p>Pet Name: {pet.name}</p>
                     </div>
                 ))}
+                <button onClick={this._deleteCreature}>Delete</button>
             </div>
         );
     }

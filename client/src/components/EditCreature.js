@@ -22,11 +22,9 @@ class EditCreature extends Component {
     _getCreatures = async (creatureId) => {
         try {
             const res = await axios.get(`/api/creatures/${creatureId}`);
-            await this.setState({
-                creature: {
-                    name: res.data.name,
-                    description: res.data.description
-            }})
+            console.log(res)
+            const creature = res.data.creature;
+            await this.setState({creature})
         }
         catch (error) {
             console.log(error)

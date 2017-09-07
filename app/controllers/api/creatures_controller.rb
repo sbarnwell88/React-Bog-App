@@ -16,7 +16,7 @@ class Api::CreaturesController < ApplicationController
 
     def update
         @creature = Creature.find params[:id]
-        @creature.update!(creature_params)        
+        @creature.update!(creature_params)   
     end
 
     def destroy
