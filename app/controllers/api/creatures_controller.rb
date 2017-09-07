@@ -6,8 +6,6 @@ class Api::CreaturesController < ApplicationController
 
     def create
         @creature = Creature.create!(creature_params)
-
-        # redirect_to creature_path(@creature)
     end
 
     def show
@@ -17,9 +15,7 @@ class Api::CreaturesController < ApplicationController
 
     def update
         @creature = Creature.find params[:id]
-        @creature.update!(creature_params)
-        
-        # redirect_to creature_path(@creature)
+        @creature.update!(creature_params)        
     end
 
     def destroy
